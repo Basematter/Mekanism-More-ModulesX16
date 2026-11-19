@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "moremekasuitunits:module_bulletproof_unit"
+    }
+  ],
+  "pattern": [
+    "I#I",
+    "IAI",
+    "PPP"
+  ],
+  "key": {
+    "I": {
+      "tag": "c:alloys/elite"
+    },
+    "A": {
+      "item": "mekanism:module_base"
+    },
+    "#": {
+      "item": "minecraft:shield"
+    },
+    "P": {
+      "tag": "c:pellets/polonium"
+    }
+  },
+  "result": {
+    "id": "moremekasuitunits:module_bulletproof_unit"
+  }
+}
