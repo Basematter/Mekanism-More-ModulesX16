@@ -18,7 +18,7 @@ public class ModTabs {
 
     static {
         UNIT_TAB = CREATIVE_MODE_TABS.register("unit_tab", () -> CreativeModeTab.builder()
-                .title(Component.translatable("itemGroup.moremekasuitmodules"))
+                .title(Component.translatable("itemGroup.moremekasuitunits"))
                 .icon(() -> {
                     if (MoreMekasuitModules.isTaczLoaded) {
                         return TaczItemInit.QUICK_AIMING_UNIT.get().getDefaultInstance();

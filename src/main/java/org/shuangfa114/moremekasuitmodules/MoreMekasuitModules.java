@@ -33,7 +33,7 @@ import java.util.Set;
 @Mod(MoreMekasuitModules.MODID)
 public class MoreMekasuitModules {
     // Define mod id in a common place for everything to reference
-    public static final String MODID = "moremekasuitmodules";
+    public static final String MODID = "moremekasuitunits";
     public static final String MOD_NAME = "MekanismMoreModules";
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
