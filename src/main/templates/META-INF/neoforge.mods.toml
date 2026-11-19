@@ -28,6 +28,7 @@ displayName = "${mod_name}" #mandatory
 logoFile= "logo.png" #optional
 # A text field displayed in the mod UI
 #credits="" #optional
+credits = "X16 item textures by Basematter" #optional
 # A text field displayed in the mod UI
 authors = "${mod_authors}" #optional
 
@@ -70,6 +71,28 @@ type = "required"
 # This version range declares a minimum of the current minecraft version up to but not including the next major version
 versionRange = "${minecraft_version_range}"
 ordering = "NONE"
+side = "BOTH"
+
+# Mekanism 是硬依赖：缺了它本模组的单元与 mixin 全部无意义
+[[dependencies."${mod_id}"]]
+modId = "mekanism"
+type = "required"
+versionRange = "[10.7,)"
+ordering = "AFTER"
+side = "BOTH"
+
+# 以下两个是软依赖：装了才注册对应单元，但 mixin 需要它们先加载完成
+[[dependencies."${mod_id}"]]
+modId = "tacz"
+type = "optional"
+versionRange = "*"
+ordering = "AFTER"
+side = "BOTH"
+[[dependencies."${mod_id}"]]
+modId = "thirst"
+type = "optional"
+versionRange = "*"
+ordering = "AFTER"
 side = "BOTH"
 
 # Features are specific properties of the game environment, that you may want to declare you require. This example declares
