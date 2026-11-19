@@ -31,9 +31,19 @@ public class MoreMekasuitUnits {
     public static boolean isTaczLoaded;
     public static boolean isThirstLoaded;
 
-    public MoreMekasuitUnits(FMLJavaModLoadingContext context) {
-        IEventBus modEventBus = context.getModEventBus();
-        ModContainer modContainer = context.getContainer();
+    /**
+     * Classic 1.20.1 no-arg constructor.
+     * <p>
+     * The original form {@code MoreMekasuitUnits(FMLJavaModLoadingContext)} using
+     * {@code context.getContainer()} relies on the mod-constructor injection API that was only
+     * added late in 47.3.x. On Forge 47.3.7 it does not even compile, and the built jar crashes
+     * on startup with "NoSuchMethodException: <init>()". The no-arg constructor plus
+     * {@link ModList#getModContainerById(String)} works on every 47.x build.
+     */
+    public MoreMekasuitUnits() {
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        ModContainer modContainer = ModList.get().getModContainerById(MODID)
+                .orElseThrow(() -> new IllegalStateException("Mod container not found: " + MODID));
         MinecraftForge.EVENT_BUS.register(this);
         isTaczLoaded = ModList.get().isLoaded("tacz");
         isThirstLoaded = ModList.get().isLoaded("thirst");
