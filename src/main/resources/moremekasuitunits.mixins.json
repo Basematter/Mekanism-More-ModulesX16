@@ -4,9 +4,9 @@
   "mixinextras": {
     "minVersion": "0.5.0-rc.1"
   },
-  "package": "org.shuangfa114.moremekasuitunits.mixin",
+  "package": "org.shuangfa114.moremekasuitmodules.mixin",
   "compatibilityLevel": "JAVA_21",
-  "plugin": "org.shuangfa114.moremekasuitunits.mixin.ModMixinConfigPlugin",
+  "plugin": "org.shuangfa114.moremekasuitmodules.mixin.ModMixinConfigPlugin",
   "mixins": [
     "mekanism.MixinItemFlameThrower",
     "mekanism.MixinItemMekaSuitArmor",
