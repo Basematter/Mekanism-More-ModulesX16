@@ -28,7 +28,7 @@ public abstract class MixinEnchantedCountIncreaseFunction {
         long usage = ModConfig.base.energyLootingModification.get();
         if (ModuleUtil.isValidWithNull(module, livingEntity, itemStack, usage)) {
             original = (int) ((original <= 0 ? 1 : original) * module.getCustomInstance().getMultiplier());
-            module.useEnergy(livingEntity, itemStack, usage);
+            module.useEnergy(livingEntity, itemStack, ModuleUtil.feToJ(usage));
         }
         return original;
     }

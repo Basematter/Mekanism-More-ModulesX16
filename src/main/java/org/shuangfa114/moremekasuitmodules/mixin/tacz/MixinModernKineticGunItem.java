@@ -49,9 +49,9 @@ public abstract class MixinModernKineticGunItem {
                 ItemStack itemStack = shooter.getItemBySlot(EquipmentSlot.CHEST);
                 IModule<ModuleQuickReloadingUnit> module = IModuleHelper.INSTANCE.getModule(itemStack, TaczModulesInit.MODULE_QUICK_RELOADING_UNIT);
                 if (module != null) {
-                    long usage = ModuleUtil.convertToFE((long) (ModConfig.base.energyQuickReloading.get() * (1 / module.getCustomInstance().getReloadingTime())));
+                    long usage = ((long) (ModConfig.base.energyQuickReloading.get() * (1 / module.getCustomInstance().getReloadingTime())));
                     if (ModuleUtil.isValid(module, shooter, itemStack, usage)) {
-                        module.useEnergy(shooter, itemStack, usage);
+                        module.useEnergy(shooter, itemStack, ModuleUtil.feToJ(usage));
                     }
                 }
             }
@@ -67,9 +67,9 @@ public abstract class MixinModernKineticGunItem {
         ItemStack itemStack = shooter.getItemBySlot(EquipmentSlot.CHEST);
         IModule<ModuleQuickReloadingUnit> module = IModuleHelper.INSTANCE.getModule(itemStack, TaczModulesInit.MODULE_QUICK_RELOADING_UNIT);
         if (module != null) {
-            long usage = ModuleUtil.convertToFE((long) (ModConfig.base.energyQuickReloading.get() * (1 / module.getCustomInstance().getReloadingTime())));
+            long usage = ((long) (ModConfig.base.energyQuickReloading.get() * (1 / module.getCustomInstance().getReloadingTime())));
             if (ModuleUtil.isValid(module, shooter, itemStack, usage)) {
-                module.useEnergy(shooter, itemStack, usage);
+                module.useEnergy(shooter, itemStack, ModuleUtil.feToJ(usage));
             }
         }
     }

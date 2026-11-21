@@ -13,6 +13,7 @@ import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
 import org.shuangfa114.moremekasuitmodules.MoreMekasuitModules;
 import org.shuangfa114.moremekasuitmodules.config.ModConfig;
 import org.shuangfa114.moremekasuitmodules.util.DrinkingWaterUtil;
+import org.shuangfa114.moremekasuitmodules.util.ModuleUtil;
 
 import java.util.function.Consumer;
 
@@ -49,9 +50,9 @@ public class ModuleAutomaticDrinkingUnit implements ICustomModule<ModuleAutomati
         if (available <= 0) {
             return;
         }
-        long energyPerDrinking = ModConfig.base.energyAutomaticDrinking.get();
+        long energyPerDrinkingJ = ModuleUtil.feToJ(Math.max(1L, ModConfig.base.energyAutomaticDrinking.get()));
         long energyStored = module.getContainerEnergy(stack);
-        int affordable = (int) Math.min(Integer.MAX_VALUE, energyStored / Math.max(1L, energyPerDrinking));
+        int affordable = (int) Math.min(Integer.MAX_VALUE, energyStored / energyPerDrinkingJ);
         int toDrink = Math.min(missing, Math.min(available, affordable));
         if (toDrink <= 0) {
             return;
@@ -65,7 +66,7 @@ public class ModuleAutomaticDrinkingUnit implements ICustomModule<ModuleAutomati
         if (portions <= 0) {
             return;
         }
-        module.useEnergy(player, stack, energyPerDrinking * portions);
+        module.useEnergy(player, stack, energyPerDrinkingJ * portions);
         player.getData(ModAttachment.PLAYER_THIRST).drink(
                 ModConfig.base.thirstPerDrinking.get() * portions,
                 ModConfig.base.quenchedPerDrinking.get() * portions);

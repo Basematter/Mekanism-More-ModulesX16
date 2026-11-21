@@ -37,7 +37,7 @@ public abstract class MixinCameraSetupEvent {
             long usage = (long) (ModConfig.base.energyRecoilOffset.get() * (1 / module.getCustomInstance().getRecoil()));
             if (ModuleUtil.isValid(module, shooter, shooter.getItemBySlot(EquipmentSlot.CHEST), usage)) {
                 modifier *= module.getCustomInstance().getRecoil();
-                module.useEnergy(shooter, itemStack, usage);
+                module.useEnergy(shooter, itemStack, ModuleUtil.feToJ(usage));
             }
         }
         return modifier;

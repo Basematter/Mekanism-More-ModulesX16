@@ -22,12 +22,12 @@ public class EntityHurtByGun {
         if(entity instanceof LivingEntity livingEntity){
             float multiple = 0;
             Stream<EquipmentSlot> stream = Arrays.stream(EquipmentSlot.values()).filter((e)->e.getType()==EquipmentSlot.Type.HUMANOID_ARMOR);
-            long usage = ModuleUtil.convertToFE(ModConfig.base.energyBulletproof.get());
+            long usage = ModConfig.base.energyBulletproof.get();
             for(EquipmentSlot equipmentSlot: stream.toList()){
                 ItemStack itemStack = livingEntity.getItemBySlot(equipmentSlot);
                 IModule<?> module = IModuleHelper.INSTANCE.getIfEnabled(itemStack,TaczModulesInit.MODULE_BULLETPROOF_UNIT);
                 if(ModuleUtil.isValidWithNull(module,livingEntity,itemStack,usage)){
-                    module.useEnergy(livingEntity,itemStack,usage);
+                    module.useEnergy(livingEntity,itemStack,ModuleUtil.feToJ(usage));
                     multiple+=2;
                 }
             }

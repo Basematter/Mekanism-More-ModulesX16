@@ -35,14 +35,20 @@ public class ModuleUtil {
     public static boolean isValidWithNull(IModule<?> module, LivingEntity livingEntity,ItemStack itemStack, long value){
         return module!=null&&isValid(module,livingEntity,itemStack,value);
     }
-    public static boolean isValid(@NotNull IModule<?> module, LivingEntity livingEntity,ItemStack itemStack, long value){
+    public static boolean isValid(@NotNull IModule<?> module, LivingEntity livingEntity,ItemStack itemStack, long fe){
         boolean t = true;
         if(module.getCustomInstance() instanceof WithOffMode withOffMode){
             t=!withOffMode.isOffMode();
         }
-        return module.isEnabled()&&t&&module.canUseEnergy(livingEntity,itemStack, convertToFE(value));
+        return module.isEnabled()&&t&&module.canUseEnergy(livingEntity,itemStack, feToJ(fe));
     }
-    public static long convertToFE(long value){
-        return UnitDisplayUtils.EnergyUnit.FORGE_ENERGY.convertFrom(value);
+
+    /**
+     * 能量统一以 FE 表示：配置值与各处 usage 变量都是 FE，
+     * 只有与 Mekanism 交互时（canUseEnergy / useEnergy 内部单位是焦耳）换算一次。
+     * 1 FE = 2.5 J，由 Mekanism 的 EnergyUnit.FORGE_ENERGY 负责。
+     */
+    public static long feToJ(long fe){
+        return UnitDisplayUtils.EnergyUnit.FORGE_ENERGY.convertFrom(fe);
     }
 }

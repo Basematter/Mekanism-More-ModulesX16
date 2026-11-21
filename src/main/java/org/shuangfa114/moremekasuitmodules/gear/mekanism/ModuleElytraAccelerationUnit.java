@@ -43,7 +43,7 @@ public record ModuleElytraAccelerationUnit(
     public void tickServer(IModule<ModuleElytraAccelerationUnit> module, IModuleContainer moduleContainer, ItemStack stack, Player player) {
         long usage = getEnergyUsage();
         if (Mekanism.keyMap.has(player.getUUID(), 0) && player.isFallFlying() && ModuleUtil.isValid(module, player, stack, usage)) {
-            module.useEnergy(player, stack, usage);
+            module.useEnergy(player, stack, ModuleUtil.feToJ(usage));
         }
     }
 
@@ -63,7 +63,7 @@ public record ModuleElytraAccelerationUnit(
     }
 
     private long getEnergyUsage() {
-        return ModuleUtil.convertToFE((long) (ModConfig.base.energyElytraAccelerationEachTick.get() * getAcceleration()));
+        return ((long) (ModConfig.base.energyElytraAccelerationEachTick.get() * getAcceleration()));
     }
 
     public float getAcceleration() {

@@ -39,7 +39,7 @@ public abstract class MixinLivingEntityAim {
         ItemStack itemStack = this.shooter.getItemBySlot(EquipmentSlot.CHEST);
         IModule<ModuleQuickAimingUnit> module = IModuleHelper.INSTANCE.getModule(itemStack, TaczModulesInit.MODULE_QUICK_AIMING_UNIT);
         if (module != null) {
-            long usage = ModuleUtil.convertToFE((long) (ModConfig.base.energyQuickAiming.get() * (1 / module.getCustomInstance().getAimTime())));
+            long usage = ((long) (ModConfig.base.energyQuickAiming.get() * (1 / module.getCustomInstance().getAimTime())));
             if (ModuleUtil.isValid(module, this.shooter, itemStack, usage)) {
                 aimTime *= module.getCustomInstance().getAimTime();
             }
@@ -56,9 +56,9 @@ public abstract class MixinLivingEntityAim {
             ItemStack itemStack = this.shooter.getItemBySlot(EquipmentSlot.CHEST);
             IModule<ModuleQuickAimingUnit> module = IModuleHelper.INSTANCE.getModule(itemStack, TaczModulesInit.MODULE_QUICK_AIMING_UNIT);
             if (module != null) {
-                long usage = ModuleUtil.convertToFE((long) (ModConfig.base.energyQuickAiming.get() * (1 / module.getCustomInstance().getAimTime())));
+                long usage = ((long) (ModConfig.base.energyQuickAiming.get() * (1 / module.getCustomInstance().getAimTime())));
                 if (ModuleUtil.isValid(module, this.shooter, itemStack, usage)) {
-                    module.useEnergy(this.shooter, itemStack, usage);
+                    module.useEnergy(this.shooter, itemStack, ModuleUtil.feToJ(usage));
                 }
             }
             iShooterDataHolder.setLastAim(true);
@@ -74,9 +74,9 @@ public abstract class MixinLivingEntityAim {
             ItemStack itemStack = this.shooter.getItemBySlot(EquipmentSlot.CHEST);
             IModule<ModuleQuickAimingUnit> module = IModuleHelper.INSTANCE.getModule(itemStack, TaczModulesInit.MODULE_QUICK_AIMING_UNIT);
             if (module != null) {
-                long usage = ModuleUtil.convertToFE((long) (ModConfig.base.energyQuickAiming.get() * (1 / module.getCustomInstance().getAimTime())));
+                long usage = ((long) (ModConfig.base.energyQuickAiming.get() * (1 / module.getCustomInstance().getAimTime())));
                 if (ModuleUtil.isValid(module, this.shooter, itemStack, usage)) {
-                    module.useEnergy(this.shooter, itemStack, usage);
+                    module.useEnergy(this.shooter, itemStack, ModuleUtil.feToJ(usage));
                 }
             }
             iShooterDataHolder.setLastAim(false);
