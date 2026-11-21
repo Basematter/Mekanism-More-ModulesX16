@@ -36,8 +36,9 @@ public abstract class MixinCameraSetupEvent {
         if (module != null) {
             long usage = (long) (ModConfig.base.energyRecoilOffset.get() * (1 / module.getCustomInstance().getRecoil()));
             if (ModuleUtil.isValid(module, shooter, shooter.getItemBySlot(EquipmentSlot.CHEST), usage)) {
+                // 这里只负责镜头效果；扣电已移到服务端的 GunFireEvent（见 GunFireEnergy），
+                // 否则客户端扣的电会在物品同步时被服务端覆盖，表现为「关镜时电量弹回去」。
                 modifier *= module.getCustomInstance().getRecoil();
-                module.useEnergy(shooter, itemStack, ModuleUtil.feToJ(usage));
             }
         }
         return modifier;

@@ -16,6 +16,7 @@ import net.neoforged.neoforge.event.server.ServerStartingEvent;
 
 import org.shuangfa114.moremekasuitmodules.config.ModConfig;
 import org.shuangfa114.moremekasuitmodules.event.EntityHurtByGun;
+import org.shuangfa114.moremekasuitmodules.event.GunFireEnergy;
 import org.shuangfa114.moremekasuitmodules.init.ModTabs;
 import org.shuangfa114.moremekasuitmodules.init.mekanism.MekanismItemInit;
 import org.shuangfa114.moremekasuitmodules.init.mekanism.MekanismModulesInit;
@@ -58,6 +59,8 @@ public class MoreMekasuitModules {
             TaczItemInit.ITEMS.register(modEventBus);
             TaczModulesInit.MODULES.register(modEventBus);
             NeoForge.EVENT_BUS.register(new EntityHurtByGun());
+            // 后座抵消的能量消耗改到服务端开火事件里扣（客户端扣会被同步覆盖）
+            NeoForge.EVENT_BUS.register(new GunFireEnergy());
         }
         //Thirst
         if(isThirstLoaded) {

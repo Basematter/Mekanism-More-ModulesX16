@@ -51,6 +51,9 @@ public abstract class MixinLivingEntityAim {
     @Expression("?.aimingProgress = ?.aimingProgress+?")
     @Inject(method = "tickAimingProgress", at = @At(value = "MIXINEXTRAS:EXPRESSION"))
     public void onAiming(CallbackInfo ci) {
+        if (this.shooter.level().isClientSide()) {
+            return;
+        }
         IShooterDataHolder iShooterDataHolder = ((IShooterDataHolder) this.data);
         if (!iShooterDataHolder.getLastAim()) {
             ItemStack itemStack = this.shooter.getItemBySlot(EquipmentSlot.CHEST);
@@ -69,6 +72,9 @@ public abstract class MixinLivingEntityAim {
     @Expression("?.aimingProgress = ?.aimingProgress-?")
     @Inject(method = "tickAimingProgress", at = @At(value = "MIXINEXTRAS:EXPRESSION"))
     public void onNotAiming(CallbackInfo ci) {
+        if (this.shooter.level().isClientSide()) {
+            return;
+        }
         IShooterDataHolder iShooterDataHolder = ((IShooterDataHolder) this.data);
         if (iShooterDataHolder.getLastAim()) {
             ItemStack itemStack = this.shooter.getItemBySlot(EquipmentSlot.CHEST);
