@@ -19,8 +19,8 @@
   "module.moremekasuitunits.recoil_offset": "后坐力倍率",
   "module.moremekasuitunits.recoil_offset_hud": "后坐力倍率: %1$s",
 
-  "module.moremekasuitunits.automatic_drinking_unit": "自动喝水单元",
-  "description.moremekasuitunits.automatic_drinking_unit": "在玩家口渴时自动补充水分",
+  "module.moremekasuitunits.automatic_drinking_unit": "自过滤饮水单元",
+  "description.moremekasuitunits.automatic_drinking_unit": "口渴时自动饮水，自带过滤，脏水除外",
 
   "module.moremekasuitunits.flame_thrower_unit": "火焰喷射单元",
   "description.moremekasuitunits.flame_thrower_unit": "为meka工具添加火焰喷射器的功能(使用meka胸甲的氢气)",

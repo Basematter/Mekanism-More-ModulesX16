@@ -1,6 +1,5 @@
 package org.shuangfa114.moremekasuitmodules.mixin.thirst;
 
-import dev.ghen.thirst.content.registry.ThirstComponent;
 import mekanism.common.attachments.IAttachmentAware;
 import mekanism.common.capabilities.ICapabilityAware;
 import mekanism.common.capabilities.fluid.item.FluidTankSpec;
@@ -11,11 +10,10 @@ import mekanism.common.item.interfaces.IJetpackItem;
 import mekanism.common.registration.impl.CreativeTabDeferredRegister;
 import net.minecraft.core.Holder;
 import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.level.material.Fluids;
-import net.neoforged.neoforge.fluids.FluidStack;
 import org.shuangfa114.moremekasuitmodules.MoreMekasuitModules;
 import org.shuangfa114.moremekasuitmodules.config.ModConfig;
 import org.shuangfa114.moremekasuitmodules.init.thirst.ThirstModulesInit;
+import org.shuangfa114.moremekasuitmodules.util.DrinkingWaterUtil;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -39,11 +37,11 @@ public abstract class MixinItemMekaSuitArmor extends ItemSpecialArmor implements
 
     @Inject(method = "<init>", at = @At("RETURN"))
     public void addCleanWaterFluidTank(Type armorType, Properties properties, CallbackInfo ci) {
-        if (MoreMekasuitModules.isThirstLoaded&&armorType == Type.HELMET) {
-            FluidStack fluidStack1 = new FluidStack(Fluids.WATER, 1);
-            fluidStack1.set(ThirstComponent.PURITY,3);
+        if (MoreMekasuitModules.isThirstLoaded && armorType == Type.HELMET) {
+            // 除脏水（purity = 0）外的水都收：无纯净度组件、1、2、3 均可，
+            // 否则要求 purity = 3 会让储水槽永远灌不进普通水。
             fluidTankSpecs.add(FluidTankSpec.createFillOnly(ModConfig.base.cleanWaterTransferRate, ModConfig.base.cleanWaterMaxStorage,
-                    fluidStack -> FluidStack.isSameFluidSameComponents(fluidStack,fluidStack1),
+                    DrinkingWaterUtil::isAcceptable,
                     itemStack -> this.hasModule(itemStack, ThirstModulesInit.MODULE_AUTOMATIC_DRINKING_UNIT)));
         }
     }
