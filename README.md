@@ -41,5 +41,3 @@ jar 在 [Releases](../../releases) 里。
 ---
 
 MIT 许可。代码原作者 [shuangfa114](https://github.com/shuangfas)，X16 贴图 Basematter。
-
-<sub>注：本分支原本的 README 只有一句 —— *It seems like I made a very foolish decision*（原作者 shuangfa114，2025-07-01）。留此存档。</sub>
