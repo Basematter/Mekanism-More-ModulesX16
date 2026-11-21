@@ -19,6 +19,7 @@ import org.shuangfa114.moremekasuitunits.init.thirst.ThirstItemInit;
 import org.shuangfa114.moremekasuitunits.init.thirst.ThirstModulesInit;
 
 import java.util.*;
+import org.shuangfa114.moremekasuitunits.event.GunFireEnergy;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(MoreMekasuitUnits.MODID)
@@ -55,6 +56,8 @@ public class MoreMekasuitUnits {
         if(isTaczLoaded){
             TaczItemInit.ITEMS.register(modEventBus);
             TaczModulesInit.MODULES.register(modEventBus);
+            // 后座抵消的能量消耗改到服务端开火事件里扣（客户端扣会被同步覆盖）
+            MinecraftForge.EVENT_BUS.register(new GunFireEnergy());
         }
         //Thirst
         if(isThirstLoaded){

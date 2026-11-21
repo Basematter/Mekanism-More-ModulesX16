@@ -48,6 +48,9 @@ public abstract class MixinLivingEntityAim {
     @Expression("?.aimingProgress = ?.aimingProgress+?")
     @Inject(method = "tickAimingProgress", at = @At(value = "MIXINEXTRAS:EXPRESSION"))
     public void onAiming(CallbackInfo ci) {
+        if (this.shooter.level().isClientSide()) {
+            return;
+        }
         IShooterDataHolder iShooterDataHolder = ((IShooterDataHolder) this.data);
         if (!iShooterDataHolder.getLastAim()) {
             IModule<ModuleQuickAimingUnit> module = UnitUtil.getUnit(this.shooter, TaczModulesInit.MODULE_QUICK_AIMING_UNIT, EquipmentSlot.CHEST);
@@ -65,6 +68,9 @@ public abstract class MixinLivingEntityAim {
     @Expression("?.aimingProgress = ?.aimingProgress-?")
     @Inject(method = "tickAimingProgress", at = @At(value = "MIXINEXTRAS:EXPRESSION"))
     public void onNotAiming(CallbackInfo ci) {
+        if (this.shooter.level().isClientSide()) {
+            return;
+        }
         IShooterDataHolder iShooterDataHolder = ((IShooterDataHolder) this.data);
         if (iShooterDataHolder.getLastAim()) {
             IModule<ModuleQuickAimingUnit> module = UnitUtil.getUnit(this.shooter, TaczModulesInit.MODULE_QUICK_AIMING_UNIT, EquipmentSlot.CHEST);

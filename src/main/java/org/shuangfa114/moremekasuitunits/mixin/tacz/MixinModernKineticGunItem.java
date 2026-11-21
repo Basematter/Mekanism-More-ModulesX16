@@ -45,7 +45,7 @@ public abstract class MixinModernKineticGunItem {
             int typeOrdinary = varargs.arg(1).checkint();
             long countDown = varargs.arg(2).checklong();
             ReloadState.StateType reloadType = ReloadState.StateType.values()[typeOrdinary];
-            if (reloadType.isReloadFinishing()) {
+            if (reloadType.isReloadFinishing() && !shooter.level().isClientSide()) {
                 IModule<ModuleQuickReloadingUnit> module = UnitUtil.getUnit(shooter, TaczModulesInit.MODULE_QUICK_RELOADING_UNIT, EquipmentSlot.CHEST);
                 if (module != null) {
                     FloatingLong floatingLong = ModConfig.base.energyUsageQuickReloading.get().multiply(1 / module.getCustomInstance().getReloadingTime());
@@ -63,6 +63,9 @@ public abstract class MixinModernKineticGunItem {
     @Inject(method = "defaultReloadFinishing", at = @At("HEAD"))
     public void test1(ModernKineticGunScriptAPI api, boolean isTactical, CallbackInfo ci) {
         LivingEntity shooter = api.getShooter();
+        if (shooter.level().isClientSide()) {
+            return;
+        }
         IModule<ModuleQuickReloadingUnit> module = UnitUtil.getUnit(shooter, TaczModulesInit.MODULE_QUICK_RELOADING_UNIT, EquipmentSlot.CHEST);
         if (module != null) {
             FloatingLong floatingLong = ModConfig.base.energyUsageQuickReloading.get().multiply(1 / module.getCustomInstance().getReloadingTime());
