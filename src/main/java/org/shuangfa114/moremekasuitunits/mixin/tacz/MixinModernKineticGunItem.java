@@ -48,9 +48,9 @@ public abstract class MixinModernKineticGunItem {
             if (reloadType.isReloadFinishing()) {
                 IModule<ModuleQuickReloadingUnit> module = UnitUtil.getUnit(shooter, TaczModulesInit.MODULE_QUICK_RELOADING_UNIT, EquipmentSlot.CHEST);
                 if (module != null) {
-                    FloatingLong floatingLong = UnitUtil.convertToFE(ModConfig.base.energyUsageQuickReloading.get().multiply(1 / module.getCustomInstance().getReloadingTime()));
+                    FloatingLong floatingLong = ModConfig.base.energyUsageQuickReloading.get().multiply(1 / module.getCustomInstance().getReloadingTime());
                     if (UnitUtil.isValid(module, shooter, floatingLong)) {
-                        module.useEnergy(shooter, floatingLong);
+                        module.useEnergy(shooter, UnitUtil.feToJ(floatingLong));
                     }
                 }
             }
@@ -65,9 +65,9 @@ public abstract class MixinModernKineticGunItem {
         LivingEntity shooter = api.getShooter();
         IModule<ModuleQuickReloadingUnit> module = UnitUtil.getUnit(shooter, TaczModulesInit.MODULE_QUICK_RELOADING_UNIT, EquipmentSlot.CHEST);
         if (module != null) {
-            FloatingLong floatingLong = UnitUtil.convertToFE(ModConfig.base.energyUsageQuickReloading.get().multiply(1 / module.getCustomInstance().getReloadingTime()));
+            FloatingLong floatingLong = ModConfig.base.energyUsageQuickReloading.get().multiply(1 / module.getCustomInstance().getReloadingTime());
             if (UnitUtil.isValid(module, shooter, floatingLong)) {
-                module.useEnergy(shooter, floatingLong);
+                module.useEnergy(shooter, UnitUtil.feToJ(floatingLong));
             }
         }
     }

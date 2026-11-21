@@ -40,9 +40,10 @@ public class UnitUtil {
         if(module.getCustomInstance() instanceof WithOffMode withOffMode){
             t=!withOffMode.isOffMode();
         }
-        return module.isEnabled()&&t&&module.canUseEnergy(livingEntity, convertToFE(floatingLong));
+        return module.isEnabled()&&t&&module.canUseEnergy(livingEntity, feToJ(floatingLong));
     }
-    public static FloatingLong convertToFE(FloatingLong floatingLong){
-        return UnitDisplayUtils.EnergyUnit.FORGE_ENERGY.convertFrom(floatingLong);
+    /** 能量统一以 FE 表示，只有与 Mekanism 交互时换算成焦耳（1 FE = 2.5 J）。 */
+    public static FloatingLong feToJ(FloatingLong fe){
+        return UnitDisplayUtils.EnergyUnit.FORGE_ENERGY.convertFrom(fe);
     }
 }

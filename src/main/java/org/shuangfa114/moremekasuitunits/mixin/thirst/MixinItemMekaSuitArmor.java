@@ -17,6 +17,7 @@ import net.minecraftforge.fluids.FluidStack;
 import org.shuangfa114.moremekasuitunits.MoreMekasuitUnits;
 import org.shuangfa114.moremekasuitunits.init.ModConfig;
 import org.shuangfa114.moremekasuitunits.init.thirst.ThirstModulesInit;
+import org.shuangfa114.moremekasuitunits.util.DrinkingWaterUtil;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -37,10 +38,9 @@ public abstract class MixinItemMekaSuitArmor extends ItemSpecialArmor implements
     @Inject(method = "<init>", at = @At("RETURN"))
     public void addCleanWaterFluidTank(ArmorItem.Type armorType, Item.Properties properties, CallbackInfo ci) {
         if (MoreMekasuitUnits.isThirstLoaded&&armorType == ArmorItem.Type.HELMET) {
-            CompoundTag purity = new CompoundTag();
-            purity.putInt("Purity",3);
+            // 除脏水（Purity = 0）外的水都收：无纯度标记、1、2、3 均可
             this.fluidTankSpecs.add(RateLimitMultiTankFluidHandler.FluidTankSpec.createFillOnly(ModConfig.base.cleanWaterTransferRate, ModConfig.base.cleanWaterMaxStorage,
-                    (fluidStack) -> fluidStack.isFluidEqual(new FluidStack(Fluids.WATER, 1, purity)),
+                    DrinkingWaterUtil::isAcceptable,
                     (itemStack -> this.hasModule(itemStack, ThirstModulesInit.MODULE_AUTOMATIC_DRINKING_UNIT))));
         }
     }

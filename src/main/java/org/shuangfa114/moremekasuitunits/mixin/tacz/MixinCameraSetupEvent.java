@@ -24,7 +24,7 @@ public abstract class MixinCameraSetupEvent {
             FloatingLong floatingLong = ModConfig.base.energyUsageRecoilOffset.get().multiply(1/module.getCustomInstance().getRecoil());
             if(UnitUtil.isValid(module,shooter,floatingLong)){
                 modifier *= module.getCustomInstance().getRecoil();
-                module.useEnergy(shooter, floatingLong);
+                module.useEnergy(shooter, UnitUtil.feToJ(floatingLong));
             }
         }
         return modifier;

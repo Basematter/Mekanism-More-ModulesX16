@@ -23,7 +23,7 @@ public class MixinForgeHooks {
             FloatingLong floatingLong = ModConfig.base.energyUsageLootingModification.get();
             if (UnitUtil.isValidWithNull(module, player, floatingLong)) {
                 original = (int) (Math.min((original <= 0 ? 1 : original), 15) * module.getCustomInstance().getMultiplier());
-                module.useEnergy(player,floatingLong);
+                module.useEnergy(player, UnitUtil.feToJ(floatingLong));
             }
         }
         return original;

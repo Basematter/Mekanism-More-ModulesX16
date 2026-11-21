@@ -38,7 +38,7 @@ public class ModuleElytraAccelerationUnit implements ICustomModule<ModuleElytraA
     public void tickServer(IModule<ModuleElytraAccelerationUnit> module, Player player) {
         FloatingLong floatingLong = getEnergyUsage();
         if (Mekanism.keyMap.has(player.getUUID(), 0) && player.isFallFlying() && UnitUtil.isValid(module, player, floatingLong)) {
-            module.useEnergy(player, floatingLong);
+            module.useEnergy(player, UnitUtil.feToJ(floatingLong));
         }
     }
 
@@ -58,7 +58,7 @@ public class ModuleElytraAccelerationUnit implements ICustomModule<ModuleElytraA
     }
 
     private FloatingLong getEnergyUsage() {
-        return UnitUtil.convertToFE(ModConfig.base.energyUsageElytraAccelerationEachTick.get().multiply(getAcceleration()));
+        return ModConfig.base.energyUsageElytraAccelerationEachTick.get().multiply(getAcceleration());
     }
 
     public float getAcceleration() {

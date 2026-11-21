@@ -45,7 +45,7 @@ public abstract class MixinCommonPlayerTickHandler {
         if(UnitUtil.isValidWithNull(module,player, floatingLong)) {
             ItemStack armor = UnitUtil.getEquipment(player, EquipmentSlot.CHEST);
             if (armor.getItem() instanceof ItemMekaSuitArmor mekaSuitArmor) {
-                module.useEnergy(player,floatingLong);
+                module.useEnergy(player, UnitUtil.feToJ(floatingLong));
                 return mekaSuitArmor.useGas(armor, MekanismGases.HYDROGEN.getChemical(), l * 2);
             }
         }
